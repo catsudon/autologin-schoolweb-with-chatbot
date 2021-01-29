@@ -1,3 +1,4 @@
+import os
 from flask import Flask,request
 import json
 import requests
@@ -29,13 +30,18 @@ def webhook():
         return 200
 
 def login(url):
-    driver = webdriver.Chrome("./chromedriver")
+    op = webdriver.ChromeOptions()
+    op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    op.add_argument("--headless")
+    op.add_argument("--no-sandbox")
+    op.add_argument("--disable-dev-sh-usage")
+    driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+    
     url = str(url)
-    print(url,'- - - - - - - - - - - - - - - - - - - - - - - - -')
     driver.get(url)
     form = driver.find_elements_by_class_name("form-control")
-    form[0].send_keys("48869")
-    form[1].send_keys("Debsirin48869")
+    form[0].send_keys("48853")
+    form[1].send_keys("Debsirin48853")
 
     button = driver.find_element_by_name("submit")
     button.click()
