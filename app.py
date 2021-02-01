@@ -11,7 +11,6 @@ import pandas as pd
 
 app = Flask(__name__)
 
-global op
 student = ["48869","46946"]
 pw = ["Debsirin48869","jai4694617"]
 op = webdriver.ChromeOptions()
@@ -72,8 +71,7 @@ def reply(token,returnstatus):
 
 
 def checkfortherest(url):
-    sts = []
-    for i in student:
+    for i in range(len(student)):
         url = 'https://notify-api.line.me/api/notify'
         headers = {'content-type':'application/x-www-form-urlencoded','Authorization':'Bearer ' + line_notify_token}
         status = loginfortherest(url,i)
