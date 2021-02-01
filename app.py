@@ -23,8 +23,8 @@ def webhook():
         elif int(len(returnstatus))==73391:
             returnstatus = "คุณได้เช็คชื่อวิชานี้ไปแล้ว"
         else:
-            returnstatus = "เช็คได้ไหมกูไม่รู้ กูยังอยู่ในช่วงพัฒนา"
-        
+            # returnstatus = "เช็คได้ไหมกูไม่รู้ กูยังอยู่ในช่วงพัฒนา"
+            returnstatus = len(returnstatus)
         reply(reply_token,returnstatus)
 
         return 200
