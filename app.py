@@ -1,5 +1,5 @@
 import os
-from flask import Flask,request,abort
+from flask import Flask,request
 import json
 import requests
 import selenium
@@ -25,7 +25,7 @@ def webhook():
         reply_token = payload['events'][0]['replyToken']
         url = payload['events'][0]['message']['text']
         if url[0:4]not=="http":
-            abort()
+            flask.abort(404)
         returnstatus = login(url)
         if int(len(returnstatus))==70593:
             returnstatus = "ขณะนี้ยังไม่มีอะไรให้เช็ค"
