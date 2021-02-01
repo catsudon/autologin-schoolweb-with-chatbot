@@ -72,12 +72,12 @@ def reply(token,returnstatus):
 
 def checkfortherest(url):
     for i in range(len(student)):
-        url = 'https://notify-api.line.me/api/notify'
+        notifyurl = 'https://notify-api.line.me/api/notify'
         headers = {'content-type':'application/x-www-form-urlencoded','Authorization':'Bearer ' + line_notify_token}
         status = loginfortherest(url,i)
         status = checksts(len(status))
         msg = student[i] + " - " + status
-        r = requests.post(url, headers=headers, data = {'message':msg})
+        r = requests.post(notifyurl, headers=headers, data = {'message':msg})
     return 200
 
 def loginfortherest(url,i):
