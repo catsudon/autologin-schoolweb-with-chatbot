@@ -1,5 +1,5 @@
 import os
-from flask import Flask,request
+from flask import Flask,request,abort
 import json
 import requests
 import selenium
@@ -10,6 +10,13 @@ from config import *
 
 app = Flask(__name__)
 
+op = webdriver.ChromeOptions()
+op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+op.add_argument("--headless")
+op.add_argument("--no-sandbox")
+op.add_argument("--disable-dev-sh-usage")
+driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+
 
 @app.route("/",methods=['POST','GET'])
 def webhook():
@@ -17,6 +24,8 @@ def webhook():
         payload = request.json
         reply_token = payload['events'][0]['replyToken']
         url = payload['events'][0]['message']['text']
+        if url[0:4]not=="http":
+            abort()
         returnstatus = login(url)
         if int(len(returnstatus))==70593:
             returnstatus = "ขณะนี้ยังไม่มีอะไรให้เช็ค"
@@ -32,14 +41,6 @@ def webhook():
         return "Hello World!"
 
 def login(url):
-    op = webdriver.ChromeOptions()
-    op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    op.add_argument("--headless")
-    op.add_argument("--no-sandbox")
-    op.add_argument("--disable-dev-sh-usage")
-    driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
-    
-    url = str(url)
     driver.get(url)
     form = driver.find_elements_by_class_name("form-control")
     form[0].send_keys("48853")
