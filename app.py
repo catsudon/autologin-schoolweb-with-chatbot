@@ -24,8 +24,8 @@ def webhook():
         payload = request.json
         reply_token = payload['events'][0]['replyToken']
         url = payload['events'][0]['message']['text']
-        if url[0:4]not=="http":
-            flask.abort(404)
+ #       if url[0:4]not=="http": #check the code if its link or not
+  #          flask.abort(404)
         returnstatus = login(url)
         if int(len(returnstatus))==70593:
             returnstatus = "ขณะนี้ยังไม่มีอะไรให้เช็ค"
