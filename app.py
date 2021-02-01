@@ -11,9 +11,11 @@ import pandas as pd
 
 app = Flask(__name__)
 
-# global student
-# global pw
+global student
+global pw
 global op
+student = ["48869","46946"]
+pw = ["Debsirin48869","jai4694617"]
 op = webdriver.ChromeOptions()
 op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 op.add_argument("--headless")
@@ -33,7 +35,7 @@ def webhook():
         returnstatus = login(url)
         returnstatus = checksts(len(returnstatus))
         reply(reply_token,returnstatus)
-        checkfortherest(url,)
+        checkfortherest(url)
 
         return 200
     else:
@@ -86,7 +88,7 @@ def checkfortherest(url):
 def loginfortherest(url,i):
     driver.get(url)
     form = driver.find_elements_by_class_name("form-control")
-    form[0].send_keys(studedt[i])
+    form[0].send_keys(student[i])
     form[1].send_keys(pw[i])
     button = driver.find_element_by_name("submit")
     button.click()
@@ -97,10 +99,10 @@ def checksts(num):
     if num==70593:
         returnstatus = "ขณะนี้ยังไม่มีอะไรให้เช็ค"
     elif num==73391:
-        returnstatus = "คุณได้เช็คชื่อวิชานี้ไปแล้ว"
+        returnstatus = "ได้เช็คชื่อวิชานี้ไปแล้ว"
     elif num==40812:
         returnstatus = "ไม่สามารถล็อคอินได้"
     else:
         # returnstatus = "เช็คได้ไหมกูไม่รู้ กูยังอยู่ในช่วงพัฒนา"
-        returnstatus = len(returnstatus)
+        returnstatus = "เช็คชื่อสำเร็จ " + str(len(returnstatus))
     return returnstatus
