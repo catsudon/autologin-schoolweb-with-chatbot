@@ -11,7 +11,7 @@ import pandas as pd
 
 app = Flask(__name__)
 
-
+global op
 student = ["48869","46946"]
 pw = ["Debsirin48869","jai4694617"]
 op = webdriver.ChromeOptions()
@@ -28,13 +28,13 @@ def webhook():
         payload = request.json
         reply_token = payload['events'][0]['replyToken']
         url = payload['events'][0]['message']['text']
-        # if url[0:4]not=="http": #check the code if its link or not
-        #     flask.abort(404)
+        if url[0:4] != "http": #check the code if its link or not
+            flask.abort(404)
         returnstatus = login(url)
         returnstatus = checksts(len(returnstatus))
         reply(reply_token,returnstatus)
         checkfortherest(url)
-
+        driver.quit()
         return 200
     else:
         return "Hello World!"
