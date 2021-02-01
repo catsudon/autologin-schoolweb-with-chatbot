@@ -11,9 +11,7 @@ import pandas as pd
 
 app = Flask(__name__)
 
-global student
-global pw
-global op
+
 student = ["48869","46946"]
 pw = ["Debsirin48869","jai4694617"]
 op = webdriver.ChromeOptions()
