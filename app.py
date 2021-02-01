@@ -44,7 +44,6 @@ def login(url):
     form = driver.find_elements_by_class_name("form-control")
     form[0].send_keys("48853")
     form[1].send_keys("000000")
-
     button = driver.find_element_by_name("submit")
     button.click()
     time.sleep(1)
